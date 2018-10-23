@@ -127,6 +127,7 @@ class GenericSpeechRequest(object):
         if audio_logging_enabled:
             self._audio_log_dir = tempfile.mkdtemp()
             self._audio_log_ix = 0
+            logger.info("Logging to ", self._audio_log_dir)
 
     def reset(self):
         while True:
