@@ -52,7 +52,7 @@ class _AssistantRecognizer(object):
         self._request.set_endpointer_cb(self._endpointer_callback)
         self._recorder.add_processor(self._request)
         response = self._request.do_request()
-        print(vars(response))
+        print(dir(response))
         return response.transcript, response.response_audio
 
     def _endpointer_callback(self):
