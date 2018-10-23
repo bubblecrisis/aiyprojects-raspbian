@@ -20,6 +20,7 @@ import logging
 import aiy.assistant.grpc
 import aiy.audio
 import aiy.voicehat
+import subprocess
 
 logging.basicConfig(
     level=logging.INFO,
@@ -46,6 +47,10 @@ def main():
                     print('Bye!')
                     break
                 print('You said "', text, '"')
+                if text == 'shutdown':
+                    print("Shutting down, goodbye")
+                    subprocess.call("sudo shutdown now", shell=True)
+
             if audio:
                 aiy.audio.play_audio(audio, assistant.get_volume())
 
