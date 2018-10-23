@@ -42,14 +42,19 @@ def main():
             print('Listening...')
             text, audio = assistant.recognize()
             if text:
+                if text == 'shut down':
+                    print("Shutting down, goodbye")
+                    subprocess.call("sudo shutdown now", shell=True)
+                    break
+                if text == 'reboot':
+                    print("Rebooting")
+                    subprocess.call("sudo shutdown -r now", shell=True)
+                    break
                 if text == 'goodbye':
                     status_ui.status('stopping')
                     print('Bye!')
                     break
                 print('You said "', text, '"')
-                if text == 'shut down':
-                    print("Shutting down, goodbye")
-                    subprocess.call("sudo shutdown now", shell=True)
 
             if audio:
                 aiy.audio.play_audio(audio, assistant.get_volume())
