@@ -49,6 +49,7 @@ class _AssistantRecognizer(object):
                 aiy.audio.play_audio(audio)
         """
         self._request.reset()
+        self._request.set_audio_logging_enabled(true)
         self._request.set_endpointer_cb(self._endpointer_callback)
         self._recorder.add_processor(self._request)
         response = self._request.do_request()
