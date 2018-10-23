@@ -19,7 +19,6 @@ import aiy.assistant.auth_helpers
 import aiy.assistant.device_helpers
 import aiy.audio
 import aiy.voicehat
-import pprint
 
 # Global variables. They are lazily initialized.
 _assistant_recognizer = None
@@ -53,8 +52,6 @@ class _AssistantRecognizer(object):
         self._request.set_endpointer_cb(self._endpointer_callback)
         self._recorder.add_processor(self._request)
         response = self._request.do_request()
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(response)
         return response.transcript, response.response_audio
 
     def _endpointer_callback(self):
