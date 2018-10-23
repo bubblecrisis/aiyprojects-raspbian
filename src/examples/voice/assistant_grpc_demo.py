@@ -47,7 +47,7 @@ def main():
                     print('Bye!')
                     break
                 print('You said "', text, '"')
-                if text == 'shutdown':
+                if text == 'shut down':
                     print("Shutting down, goodbye")
                     subprocess.call("sudo shutdown now", shell=True)
 
