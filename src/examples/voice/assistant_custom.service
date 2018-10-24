@@ -5,8 +5,8 @@ Description=voice recognizer
 After=network.target systemd-timesyncd.service
 
 [Service]
-ExecStart=/usr/bin/python3 -u examples/voice/assistant_custom.py
-WorkingDirectory=/home/pi/AIY-projects-python/src
+ExecStart=/usr/bin/python3 -u assistant_custom.py -launch ./launch/nab.wav
+WorkingDirectory=/home/pi/AIY-projects-python/src/examples/voice
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
