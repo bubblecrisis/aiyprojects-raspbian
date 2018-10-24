@@ -178,19 +178,23 @@ class GenericSpeechRequest(object):
         audio queue.
         """
         yield self._create_config_request()
-
-        while True:
-            #if data == None:
-            print(data)
-            data = self._audio_queue.get()
-
-            if not data:
-                return
-
+        # Already provided
+        if data:
             if self._request_log_wav:
                 self._request_log_wav.writeframes(data)
 
             yield self._create_audio_request(data)
+        # Get it from mic
+        else    
+            while True:
+                data = self._audio_queue.get()
+                if not data:
+                    return
+
+                if self._request_log_wav:
+                    self._request_log_wav.writeframes(data)
+
+                yield self._create_audio_request(data)
 
     @abstractmethod
     def _create_response_stream(self, service, request_stream, deadline):
