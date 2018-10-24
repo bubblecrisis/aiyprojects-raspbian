@@ -9,12 +9,16 @@ import aiy.assistant.grpc
 import aiy.audio
 import aiy.voicehat
 import subprocess
+import wave
 
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
 )
 
+def launch_phrase():
+    read = wave.open('./launch/nab.wave','rb')
+    return read.readframes(read.getnframes())
 
 def main():
     status_ui = aiy.voicehat.get_status_ui()
@@ -24,8 +28,14 @@ def main():
     status_ui.status('ready')
     print('Press the button and speak')
     button.wait_for_press()
-    status_ui.status('listening')
 
+    # Send launch phrase
+    text, audio, state = assistant.send_phrase(launch_phrase())
+    if audio:
+        aiy.audio.play_audio(audio, assistant.get_volume())
+
+    # Wait for answer    
+    status_ui.status('listening')
     with aiy.audio.get_recorder():
         while True:
 
