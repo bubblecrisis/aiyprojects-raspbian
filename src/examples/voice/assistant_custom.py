@@ -35,6 +35,10 @@ def process_arg():
 
 def main():
     arguments = process_arg()
+    print (arguments)
+    print (arguments.launch)
+
+
     status_ui = aiy.voicehat.get_status_ui()
     status_ui.status('starting')
     assistant = aiy.assistant.grpc.get_assistant()
@@ -44,8 +48,6 @@ def main():
     button.wait_for_press()
 
     # Send launch phrase
-    print (arguments)
-    print (arguments.launch)
     if arguments.launch:
         text, audio, state = assistant.send_phrase(launch_phrase())
         if audio:
