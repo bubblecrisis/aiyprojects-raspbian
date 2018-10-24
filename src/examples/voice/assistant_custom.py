@@ -18,6 +18,7 @@ logging.basicConfig(
 
 def launch_phrase():
     read = wave.open('./launch/nab.wav','rb')
+    print read.getnframes()
     return read.readframes(read.getnframes())
 
 def main():
