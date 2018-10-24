@@ -173,14 +173,15 @@ class GenericSpeechRequest(object):
         """
         return
 
-    def _request_stream(self):
+    def _request_stream(self, data=None):
         """Yields a config request followed by requests constructed from the
         audio queue.
         """
         yield self._create_config_request()
 
         while True:
-            data = self._audio_queue.get()
+            if not data:
+                data = self._audio_queue.get()
 
             if not data:
                 return
@@ -250,7 +251,7 @@ class GenericSpeechRequest(object):
 
         return _Result(None, None, None)
 
-    def do_request(self):
+    def do_request(self, data=None):
         """Establishes a connection and starts sending audio to the cloud
         endpoint. Responses are handled by the subclass until one returns a
         result.
@@ -266,8 +267,8 @@ class GenericSpeechRequest(object):
             service = self._make_service(self._channel_factory.make_channel())
 
             response_stream = self._create_response_stream(
-                service, self._request_stream(), self.DEADLINE_SECS)
-
+                service, self._request_stream(data), self.DEADLINE_SECS)
+        
             if self._audio_logging_enabled:
                 self._start_logging_request()
 
