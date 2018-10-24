@@ -54,7 +54,7 @@ AUDIO_SAMPLE_RATE_HZ = 16000
 SERVICE_CREDENTIALS = os.path.expanduser('~/cloud_speech.json')
 
 
-_Result = collections.namedtuple('_Result', ['transcript', 'response_audio'])
+_Result = collections.namedtuple('_Result', ['transcript', 'response_audio', 'dialog_state'])
 
 
 class Error(Exception):
