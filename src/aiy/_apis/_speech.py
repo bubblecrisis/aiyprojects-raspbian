@@ -167,7 +167,6 @@ class GenericSpeechRequest(object):
 
     @abstractmethod
     def _create_audio_request(self, data):
-        print('audio request size: ', len(data))
         """Create an audio request for the given endpoint.
 
         This is sent to the server with audio to be recognized.
@@ -421,6 +420,7 @@ class AssistantSpeechRequest(GenericSpeechRequest):
         return embedded_assistant_pb2.AssistRequest(config=assist_config)
 
     def _create_audio_request(self, data):
+        print('audio request size: ', len(data))
         return embedded_assistant_pb2.AssistRequest(audio_in=data)
 
     def _create_response_stream(self, service, request_stream, deadline):
