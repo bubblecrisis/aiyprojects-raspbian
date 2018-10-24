@@ -190,7 +190,7 @@ class GenericSpeechRequest(object):
 
                 if self._request_log_wav:
                     self._request_log_wav.writeframes(data)
-
+                print('audio request size: ', len(data))
                 yield self._create_audio_request(data)
 
     @abstractmethod
