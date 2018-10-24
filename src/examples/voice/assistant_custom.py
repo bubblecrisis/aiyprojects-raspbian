@@ -17,8 +17,8 @@ logging.basicConfig(
     format="[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
 )
 
-def launch_phrase():
-    read = wave.open('./launch/nab.wav','rb')
+def launch_phrase(launch_file):
+    read = wave.open(launch_file,'rb')
     chunk_size = 3200
     number_of_chunks = int(read.getnframes() / chunk_size)
     
@@ -35,10 +35,6 @@ def process_arg():
 
 def main():
     arguments = process_arg()
-    print (arguments)
-    print (arguments.launch)
-
-
     status_ui = aiy.voicehat.get_status_ui()
     status_ui.status('starting')
     assistant = aiy.assistant.grpc.get_assistant()
@@ -49,7 +45,7 @@ def main():
 
     # Send launch phrase
     if arguments.launch:
-        text, audio, state = assistant.send_phrase(launch_phrase())
+        text, audio, state = assistant.send_phrase(launch_phrase(arguments.launch))
         if audio:
             aiy.audio.play_audio(audio, assistant.get_volume())
 
