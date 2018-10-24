@@ -37,7 +37,7 @@ class _AssistantRecognizer(object):
 
     def send_phrase(self, data_frames):
         self._request.reset()
-        self._request.set_audio_logging_enabled()
+        #self._request.set_audio_logging_enabled()
         self._request.set_endpointer_cb(self._endpointer_callback)
         response = self._request.do_request(data_frames)
         return response.transcript, response.response_audio, response.dialog_state

@@ -23,18 +23,10 @@ def launch_phrase():
     number_of_chunks = int(read.getnframes() / 3200)
     chunk_size = int(read.getnframes() / number_of_chunks)
     
-    print ("chunk_size: ", chunk_size)
-    print ("number of chunks: ", number_of_chunks)
-    
     data_frames = []
     read.rewind()             
     for c in range(0, number_of_chunks):
-        print ("pos_before:", read.tell())
-        read.setpos(c * chunk_size)
-        print ("pos_set:", read.tell())
         data_frames.append(read.readframes(chunk_size))
-        print ("pos_after_read:", read.tell())
-
     return data_frames
 
 def main():
