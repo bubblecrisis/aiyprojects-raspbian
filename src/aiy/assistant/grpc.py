@@ -35,7 +35,7 @@ class _AssistantRecognizer(object):
     def get_volume(self):
         return self._request._volume_percentage
 
-    def send_phrase(data):
+    def send_phrase(self, data):
         self._request.reset()
         # self._request.set_audio_logging_enabled()
         self._request.set_endpointer_cb(self._endpointer_callback)
