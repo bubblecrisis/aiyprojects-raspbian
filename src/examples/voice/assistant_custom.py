@@ -10,6 +10,7 @@ import aiy.audio
 import aiy.voicehat
 import subprocess
 import wave
+from argparse import ArgumentParser
 
 logging.basicConfig(
     level=logging.INFO,
@@ -27,7 +28,13 @@ def launch_phrase():
         data_frames.append(read.readframes(chunk_size))
     return data_frames
 
+def process_arg():
+    parser = ArgumentParser()
+    parser.add_argument("-l", "--launch", dest="wave file", help="Launch *.wav file", metavar="FILE")
+    return parser.parse_args()
+
 def main():
+    arguments = process_arg()
     status_ui = aiy.voicehat.get_status_ui()
     status_ui.status('starting')
     assistant = aiy.assistant.grpc.get_assistant()
@@ -37,9 +44,12 @@ def main():
     button.wait_for_press()
 
     # Send launch phrase
-    text, audio, state = assistant.send_phrase(launch_phrase())
-    if audio:
-        aiy.audio.play_audio(audio, assistant.get_volume())
+    print (arguments)
+    print (arguments.launch)
+    if arguments.launch:
+        text, audio, state = assistant.send_phrase(launch_phrase())
+        if audio:
+            aiy.audio.play_audio(audio, assistant.get_volume())
 
     # Wait for answer    
     status_ui.status('listening')
