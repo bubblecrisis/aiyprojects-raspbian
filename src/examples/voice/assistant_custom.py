@@ -25,7 +25,7 @@ def launch_phrase():
 
     for c in range(chunk):
         print ("getting chunk", c+1)
-        data_frames[c] = read.readframes(c + 1)
+        data_frames.append(read.readframes(c + 1))
     return data_frames
 
 def main():
