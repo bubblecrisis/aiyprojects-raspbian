@@ -21,7 +21,7 @@ def launch_phrase():
     framesize = read.getsampwidth() * read.getnchannels()
     total_size = read.getnframes() * read.getsampwidth() * read.getnchannels()
     number_of_chunks = int(total_size / 3200)
-    chunk_size = total_size / number_of_chunks
+    chunk_size = int(total_size / number_of_chunks)
     
     print ("chunk_size: ", chunk_size)
     print ("number of chunks: ", number_of_chunks)
