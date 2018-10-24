@@ -21,7 +21,7 @@ def launch_phrase():
     framesize = read.getsampwidth() * read.getnchannels()
     total_size = read.getnframes() * read.getsampwidth() * read.getnchannels()
     number_of_chunks = int(total_size / 3200)
-    chunk_size = read.getnframes() / number_of_chunks
+    chunk_size = total_size / number_of_chunks
     
     print ("chunk_size: ", chunk_size)
     print ("number of chunks: ", number_of_chunks)
@@ -30,7 +30,7 @@ def launch_phrase():
     read.rewind()             
     for c in range(0, number_of_chunks):
         print ("pos_before:", read.tell())
-        read.setpos(number_of_chunks * chunk_size)
+        read.setpos(c * chunk_size)
         print ("pos_set:", read.tell())
         data_frames.append(read.readframes(chunk_size))
         print ("pos_after_read:", read.tell())
