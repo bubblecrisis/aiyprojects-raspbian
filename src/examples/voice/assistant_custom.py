@@ -32,7 +32,7 @@ def main():
             print('Listening...')
             text, audio, state = assistant.recognize()
             if state:
-                pprintpprint(state)
+                pprint.pprint(state)
 
             if text:
                 if text == 'shut down':
