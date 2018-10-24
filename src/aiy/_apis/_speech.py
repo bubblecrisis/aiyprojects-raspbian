@@ -173,14 +173,16 @@ class GenericSpeechRequest(object):
         """
         return
 
-    def _request_stream(self, data=None):
+    def _request_stream(self, data_frames=None):
         """Yields a config request followed by requests constructed from the
         audio queue.
         """
         yield self._create_config_request()
         # Already provided
-        if data:
-            yield self._create_audio_request(data)
+        if data_frames:
+            for data in data_frames:
+                yield self._create_audio_request(data)
+                
         # Get it from mic
         else:
             while True:

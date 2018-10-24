@@ -18,11 +18,13 @@ logging.basicConfig(
 
 def launch_phrase():
     read = wave.open('./launch/nab.wav','rb')
-    print('getnframes :',read.getnframes())
-    print('getsampwidth :',read.getsampwidth())
-    print('getnchannels :',read.getnchannels())
-    print('len:', len(read.readframes(read.getnframes())))
-    return None
+    size = read.getnframes() * read.getsampwidth() * read.getnchannels()
+    chunk = size / 3200
+    data_frames = []
+
+    for c in range(chunk):
+        data_frames[c] = read.readframes(read.tell() + c + 1)
+    return data_frames
 
 def main():
     status_ui = aiy.voicehat.get_status_ui()
@@ -34,10 +36,9 @@ def main():
     button.wait_for_press()
 
     # Send launch phrase
-    launch_phrase()
-    #text, audio, state = assistant.send_phrase(launch_phrase())
-    #if audio:
-    #    aiy.audio.play_audio(audio, assistant.get_volume())
+    text, audio, state = assistant.send_phrase(launch_phrase())
+    if audio:
+        aiy.audio.play_audio(audio, assistant.get_volume())
 
     # Wait for answer    
     status_ui.status('listening')
