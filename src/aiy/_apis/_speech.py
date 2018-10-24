@@ -182,7 +182,7 @@ class GenericSpeechRequest(object):
         if data:
             yield self._create_audio_request(data)
         # Get it from mic
-        else
+        else:
             while True:
                 data = self._audio_queue.get()
                 if not data:
