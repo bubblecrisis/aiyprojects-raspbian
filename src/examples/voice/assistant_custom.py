@@ -21,7 +21,7 @@ def launch_phrase():
     print('getnframes :',read.getnframes())
     print('getsampwidth :',read.getsampwidth())
     print('getnchannels :',read.getnchannels())
-    print('len:', read.readframes(read.getnframes()))
+    print('len:', len(read.readframes(read.getnframes())))
     return None
 
 def main():
