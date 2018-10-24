@@ -19,11 +19,12 @@ logging.basicConfig(
 def launch_phrase():
     read = wave.open('./launch/nab.wav','rb')
     size = read.getnframes() * read.getsampwidth() * read.getnchannels()
-    chunk = size / 3200
+    chunk = int(size / 3200)
+    print ("frames (chunk): ", chunk)
     data_frames = []
 
-    for c in range(int(chunk)):
-        data_frames[c] = read.readframes(read.tell() + c + 1)
+    for c in range(chunk):
+        data_frames[c] = read.readframes(c + 1)
     return data_frames
 
 def main():
