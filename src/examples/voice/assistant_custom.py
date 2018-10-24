@@ -29,7 +29,7 @@ def launch_phrase():
     data_frames = []
     read.rewind()             
     for c in range(0, number_of_chunks):
-        read.setpos(read.tell() + (number_of_chunks * chunk_size))
+        read.setpos(number_of_chunks * chunk_size)
         data_frames.append(read.readframes(chunk_size))
     return data_frames
 
