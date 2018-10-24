@@ -18,8 +18,11 @@ logging.basicConfig(
 
 def launch_phrase():
     read = wave.open('./launch/nab.wav','rb')
-    print(read.getnframes())
-    return read.readframes(read.getnframes())
+    print('getnframes :',read.getnframes())
+    print('getsampwidth :',read.getsampwidth())
+    print('getnchannels :',read.getnchannels())
+    print('len:', read.readframes(read.getnframes()))
+    return None
 
 def main():
     status_ui = aiy.voicehat.get_status_ui()
