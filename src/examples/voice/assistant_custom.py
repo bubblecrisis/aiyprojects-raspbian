@@ -20,7 +20,7 @@ def launch_phrase():
     read = wave.open('./launch/nab.wav','rb')
     framesize = read.getsampwidth() * read.getnchannels()
     total_size = read.getnframes() * framesize
-    number_of_chunks = int(read.getnframes() / 3200)) 
+    number_of_chunks = int(read.getnframes() / 3200)
     chunk_size = int(read.getnframes() / number_of_chunks)
     
     print ("chunk_size: ", chunk_size)
