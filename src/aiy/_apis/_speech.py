@@ -167,6 +167,7 @@ class GenericSpeechRequest(object):
 
     @abstractmethod
     def _create_audio_request(self, data):
+        print('audio request size: ', len(data))
         """Create an audio request for the given endpoint.
 
         This is sent to the server with audio to be recognized.
@@ -190,7 +191,7 @@ class GenericSpeechRequest(object):
 
                 if self._request_log_wav:
                     self._request_log_wav.writeframes(data)
-                print('audio request size: ', len(data))
+
                 yield self._create_audio_request(data)
 
     @abstractmethod

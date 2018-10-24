@@ -31,9 +31,9 @@ def main():
     button.wait_for_press()
 
     # Send launch phrase
-    text, audio, state = assistant.send_phrase(launch_phrase())
-    if audio:
-        aiy.audio.play_audio(audio, assistant.get_volume())
+    #text, audio, state = assistant.send_phrase(launch_phrase())
+    #if audio:
+    #    aiy.audio.play_audio(audio, assistant.get_volume())
 
     # Wait for answer    
     status_ui.status('listening')
