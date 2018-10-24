@@ -27,8 +27,8 @@ def launch_phrase():
     read.rewind()             
     for c in range(1, chunk+1):
         print ("getting chunk", c, chunk)
-        print ("position: ", wave.tell() + (chunk * framesize))
-        read.setpos(wave.tell() + (chunk * framesize))
+        print ("position: ", read.tell() + (chunk * framesize))
+        read.setpos(read.tell() + (chunk * framesize))
         data_frames.append(read.readframes(chunk))
     return data_frames
 
