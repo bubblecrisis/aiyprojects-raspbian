@@ -22,7 +22,7 @@ def launch_phrase():
     chunk = size / 3200
     data_frames = []
 
-    for c in range(chunk):
+    for c in range(int(chunk)):
         data_frames[c] = read.readframes(read.tell() + c + 1)
     return data_frames
 
