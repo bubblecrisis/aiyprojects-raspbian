@@ -180,7 +180,7 @@ class GenericSpeechRequest(object):
         yield self._create_config_request()
 
         while True:
-            if not data:
+            if data == None:
                 data = self._audio_queue.get()
 
             if not data:
