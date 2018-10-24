@@ -3,6 +3,7 @@
 """A demo of the Google Assistant GRPC recognizer."""
 
 import logging
+import pprint
 
 import aiy.assistant.grpc
 import aiy.audio
@@ -29,7 +30,10 @@ def main():
         while True:
 
             print('Listening...')
-            text, audio = assistant.recognize()
+            text, audio, state = assistant.recognize()
+            if state:
+                pprintpprint(state)
+
             if text:
                 if text == 'shut down':
                     print("Shutting down, goodbye")

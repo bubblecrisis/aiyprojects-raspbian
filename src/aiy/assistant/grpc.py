@@ -53,7 +53,7 @@ class _AssistantRecognizer(object):
         self._request.set_endpointer_cb(self._endpointer_callback)
         self._recorder.add_processor(self._request)
         response = self._request.do_request()
-        return response.transcript, response.response_audio
+        return response.transcript, response.response_audio, response.dialog_state
 
     def _endpointer_callback(self):
         self._recorder.remove_processor(self._request)

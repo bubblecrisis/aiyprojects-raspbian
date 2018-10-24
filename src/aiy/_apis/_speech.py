@@ -248,7 +248,7 @@ class GenericSpeechRequest(object):
         if self._request_log_wav:
             self._request_log_wav.close()
 
-        return _Result(None, None)
+        return _Result(None, None, None)
 
     def do_request(self):
         """Establishes a connection and starts sending audio to the cloud
@@ -349,7 +349,7 @@ class CloudSpeechRequest(GenericSpeechRequest):
 
     def _finish_request(self):
         super()._finish_request()
-        return _Result(self._transcript, None)
+        return _Result(self._transcript, None, None)
 
 
 class AssistantSpeechRequest(GenericSpeechRequest):
@@ -468,7 +468,7 @@ class AssistantSpeechRequest(GenericSpeechRequest):
         if self._response_audio and self._audio_logging_enabled:
             self._log_audio_out(self._response_audio)
 
-        return _Result(self._transcript, self._response_audio)
+        return _Result(self._transcript, self._response_audio, self._conversation_state)
 
     def _log_audio_out(self, frames):
         response_filename = '%s/response.%03d.wav' % (
