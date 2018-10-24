@@ -30,7 +30,7 @@ def launch_phrase():
 
 def process_arg():
     parser = ArgumentParser()
-    parser.add_argument("-l", "--launch", dest="wave file", help="Launch *.wav file", metavar="FILE")
+    parser.add_argument("-l", "--launch", help="Launch *.wav file", metavar="FILE")
     return parser.parse_args()
 
 def main():
