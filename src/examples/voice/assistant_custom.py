@@ -62,10 +62,9 @@ def main():
             aiy.audio.play_audio(audio, assistant.get_volume())
 
     # Wait for answer    
-    status_ui.status('listening')
     with aiy.audio.get_recorder():
         while True:
-
+            status_ui.status('listening')
             print('Listening...')
             text, audio, state = assistant.recognize()
             if text:
