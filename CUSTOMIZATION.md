@@ -17,7 +17,7 @@ git pull
 Create a symbolic link ``voicekit.service`` for systemctl.
 
 ```
-sudo ln -s /etc/systemd/system/multi-user.target.wants/voicekit.service  /home/pi/AIY-voice-kit-python/src/examples/voice/assistant_custom.service
+sudo ln -s /home/pi/AIY-voice-kit-python/src/examples/voice/assistant.{custom}.service /etc/systemd/system/multi-user.target.wants/voicekit.service  
 ```
 
 Reload, start, stop and check status systemctl commands:
