@@ -13,6 +13,17 @@ import subprocess
 import wave
 from argparse import ArgumentParser
 
+#
+#    The supported statuses are:
+#      - "starting"
+#      - "ready"
+#      - "listening"
+#      - "thinking"
+#      - "stopping"
+#      - "power-off"
+#      - "error"
+#
+
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
@@ -61,18 +72,19 @@ def main():
                 if text == 'shut down':
                     print("Shutting down, goodbye")
                     subprocess.call("sudo shutdown now", shell=True)
-                    break
+                    return
                 if text == 'reboot':
                     print("Rebooting")
                     subprocess.call("sudo shutdown -r now", shell=True)
-                    break
+                    return
                 if text == 'goodbye':
-                    status_ui.status('stopping')
+                    status_ui.status('power-off')
                     print('Bye!')
-                    break
+                    return
                 print('You said "', text, '"')
 
             if audio:
+                status_ui.status('thinking')
                 aiy.audio.play_audio(audio, assistant.get_volume())
 
 
