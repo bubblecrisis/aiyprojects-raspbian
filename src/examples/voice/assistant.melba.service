@@ -1,0 +1,17 @@
+# This service can be used to run your code automatically on startup.
+
+[Unit]
+Description=voice recognizer
+After=network.target systemd-timesyncd.service
+
+[Service]
+ExecStart=/usr/bin/python3 -u assistant_custom.py --launch ./launch/melba.wav
+WorkingDirectory=/home/pi/AIY-projects-python/src/examples/voice
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target
