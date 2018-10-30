@@ -5,6 +5,7 @@
 import logging
 import pprint
 
+import RPi.GPIO as GPIO
 import aiy.assistant.grpc
 import aiy.audio
 import aiy.voicehat
@@ -76,4 +77,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    finally:
+        GPIO.cleanup()

@@ -29,5 +29,20 @@ sudo systemctl stop voicekit
 system status voicekit
 ```
 
+# Troubleshoot
+
+### Failed to add edge detection error
+
+If you are getting error:
+```
+GPIO.add_event_detect(self.channel, self.polarity)
+RuntimeError: Failed to add edge detection
+```
+
+Resolution is:
+
+```
+echo 23 > /sys/class/gpio/unexport
+``` 
 
 
