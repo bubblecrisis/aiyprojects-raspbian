@@ -11,6 +11,11 @@ cd AIY-voice-kit-python
 git checkout release
 git pull
 ```
+## Deploy the Google Cloud credentials
+
+```
+cp AIY-voice-kit-python/assistant.json ~/.
+```
 
 ## Run as service
 
