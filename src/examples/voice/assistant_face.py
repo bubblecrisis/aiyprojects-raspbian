@@ -78,7 +78,7 @@ def wait_for_face(cap, faceCascade):
                 logger.info('Face detected. x=%s, y=%s, w=%s, h=%s',w,y,w,h)
                 break        
 
-def converse(assistant, launch_phrase_data):
+def converse(assistant, status_ui, launch_phrase_data):
     # Send launch phrase
     if launch_phrase_data:
         text, audio, state = assistant.send_phrase(launch_phrase_data)
@@ -129,7 +129,7 @@ def main():
     try:
         while True:
             wait_for_face(cap, faceCascade)
-            converse(assistant, launch_phrase_data)
+            converse(assistant, status_ui, launch_phrase_data)
     finally:
         cap.release()        
 
