@@ -58,7 +58,7 @@ def capture_video():
 
 def wait_for_face(cap):
     face_found = false
-    while !face_found:
+    while not face_found:
         time.sleep(0.5)
         ret, img = cap.read()
 
