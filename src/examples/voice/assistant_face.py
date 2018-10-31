@@ -78,12 +78,12 @@ def wait_for_face(cap, faceCascade):
                 logger.info('Face detected. x=%s, y=%s, w=%s, h=%s',w,y,w,h)
                 break        
 
-def converse(assistant, status_ui, launch_phrase_data):
-    # Send launch phrase
-    if launch_phrase_data:
-        text, audio, state = assistant.send_phrase(launch_phrase_data)
-        if audio:
-            aiy.audio.play_audio(audio, assistant.get_volume())
+def converse(assistant, status_ui):
+    # # Send launch phrase
+    # if launch_phrase_data:
+    #     text, audio, state = assistant.send_phrase(launch_phrase_data)
+    #     if audio:
+    #         aiy.audio.play_audio(audio, assistant.get_volume())
 
     # Wait for answer    
     with aiy.audio.get_recorder():
@@ -120,16 +120,18 @@ def main():
     assistant = aiy.assistant.grpc.get_assistant()
     status_ui.status('ready')
     
-    # Check launch phrase option
+    # Launch phrase option
     if arguments.launch:
-        launch_phrase_data = launch_phrase(arguments.launch)
+        text, audio, state = assistant.send_phrase(launch_phrase(arguments.launch))
+        if audio:
+            aiy.audio.play_audio(audio, assistant.get_volume())
 
     faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
     cap = capture_video()
     try:
         while True:
             wait_for_face(cap, faceCascade)
-            converse(assistant, status_ui, launch_phrase_data)
+            converse(assistant, status_ui)
     finally:
         cap.release()        
 
