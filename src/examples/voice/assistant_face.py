@@ -120,9 +120,12 @@ def main():
     status_ui.status('ready')
     
     cap = capture_video()
-    while True:
-        wait_for_face(cap)
-        converse()
+    try:
+        while True:
+            wait_for_face(cap)
+            converse()
+    finally:
+        cap.release()        
 
 
 
