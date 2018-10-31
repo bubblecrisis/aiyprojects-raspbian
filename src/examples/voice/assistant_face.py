@@ -52,33 +52,33 @@ def process_arg():
     parser.add_argument("-l", "--launch", help="Launch *.wav file", metavar="FILE")
     return parser.parse_args()
 
-def capture_video():
+def wait_for_face(faceCascade):
     cap = cv2.VideoCapture(0)
     cap.set(3,640) # set Width
     cap.set(4,480) # set Height
-    return cap
+    try:
+        face_found = False
+        logger.info('Waiting for a face...')
+        while not face_found:
+            time.sleep(0.5)
+            ret, img = cap.read()
 
-def wait_for_face(cap, faceCascade):
-    face_found = False
-    logger.info('Waiting for a face...')
-    while not face_found:
-        time.sleep(0.5)
-        ret, img = cap.read()
+            # img = cv2.flip(img, -1)
+            # rotate 90
+            (h, w) = img.shape[:2]
+            center = (w/2, h/2)
+            M = cv2.getRotationMatrix2D(center, 90, 1.0)
+            img = cv2.warpAffine(img, M, (h, w))
 
-        # img = cv2.flip(img, -1)
-        # rotate 90
-        (h, w) = img.shape[:2]
-        center = (w/2, h/2)
-        M = cv2.getRotationMatrix2D(center, 90, 1.0)
-        img = cv2.warpAffine(img, M, (h, w))
-
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = faceCascade.detectMultiScale(gray,scaleFactor=1.2,minNeighbors=5,minSize=(20, 20))
-        for (x,y,w,h) in faces:
-            if w > 50 and h > 50:
-                face_found = True 
-                logger.info('Face detected. x=%s, y=%s, w=%s, h=%s',w,y,w,h)
-                break        
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            faces = faceCascade.detectMultiScale(gray,scaleFactor=1.2,minNeighbors=5,minSize=(20, 20))
+            for (x,y,w,h) in faces:
+                if w > 50 and h > 50:
+                    face_found = True 
+                    logger.info('Face detected. x=%s, y=%s, w=%s, h=%s',w,y,w,h)
+                    break        
+    finally:   
+        cap.release()
 
 def converse(assistant, status_ui):
     # Hello
@@ -138,11 +138,10 @@ def main():
         silent_launch(assistant)
 
     faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
-    cap = capture_video()
     with aiy.audio.get_recorder():
         try:
             while True:
-                wait_for_face(cap, faceCascade)
+                wait_for_face(faceCascade)
                 converse(assistant, status_ui)
         finally:
             cap.release()        
