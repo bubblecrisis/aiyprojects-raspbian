@@ -56,7 +56,7 @@ def capture_video():
     cap.set(4,480) # set Height
     return cap
 
-def wait_for_face(cap):
+def wait_for_face(cap, faceCascade):
     face_found = False
     while not face_found:
         time.sleep(0.5)
@@ -118,11 +118,12 @@ def main():
     status_ui.status('starting')
     assistant = aiy.assistant.grpc.get_assistant()
     status_ui.status('ready')
-    
+
+    faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
     cap = capture_video()
     try:
         while True:
-            wait_for_face(cap)
+            wait_for_face(cap, faceCascade)
             converse()
     finally:
         cap.release()        
