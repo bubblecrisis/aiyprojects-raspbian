@@ -107,7 +107,7 @@ def converse(assistant, status_ui):
                 if text == 'goodbye':
                     status_ui.status('power-off')
                     logger.info('Goodbye')
-                    silent_launch()
+                    silent_launch(assistant)
                     continue_conversation = False
                 print('You said "', text, '"')
 
@@ -115,7 +115,7 @@ def converse(assistant, status_ui):
                 status_ui.status('thinking')
                 aiy.audio.play_audio(audio, assistant.get_volume())
 
-def silent_launch():
+def silent_launch(assistant):
     global launch_phrase_data
     if launch_phrase_data:
         logger.info('Launching skill...')
@@ -135,7 +135,7 @@ def main():
     # Launch phrase option
     if arguments.launch:
         launch_phrase_data = launch_phrase(arguments.launch)
-        silent_launch()
+        silent_launch(assistant)
 
     faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
     cap = capture_video()
