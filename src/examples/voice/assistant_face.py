@@ -79,14 +79,13 @@ def wait_for_face(cap, faceCascade):
                 break        
 
 def converse(assistant, status_ui):
-    # # Send launch phrase
-    # if launch_phrase_data:
-    #     text, audio, state = assistant.send_phrase(launch_phrase_data)
-    #     if audio:
-    #         aiy.audio.play_audio(audio, assistant.get_volume())
+    # Hello
+    text, audio, state = assistant.send_phrase(launch_phrase("launch/hello.wav"))
+    if audio:
+        aiy.audio.play_audio(audio, assistant.get_volume())
 
     # Wait for answer    
-    with aiy.audio.get_recorder():
+    # with aiy.audio.get_recorder():
         continue_conversation = True
         while continue_conversation:
             status_ui.status('listening')
@@ -128,12 +127,13 @@ def main():
 
     faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
     cap = capture_video()
-    try:
-        while True:
-            wait_for_face(cap, faceCascade)
-            converse(assistant, status_ui)
-    finally:
-        cap.release()        
+    with aiy.audio.get_recorder()
+        try:
+            while True:
+                wait_for_face(cap, faceCascade)
+                converse(assistant, status_ui)
+        finally:
+            cap.release()        
 
 
 
