@@ -50,8 +50,8 @@ def launch_phrase(launch_file):
 
 def process_arg():
     parser = ArgumentParser()
-    parser.add_argument("-l", "--launch", help="Launch *.wav file", metavar="N")
-    parser.add_argument("-r", "--rotate", help="Rotate image",  type=int, metavar="FILE")
+    parser.add_argument("-l", "--launch", help="Launch *.wav file", metavar="FILE")
+    parser.add_argument("-r", "--rotate", help="Rotate image",  type=int, metavar="N")
     return parser.parse_args()
 
 def wait_for_face(faceCascade):
