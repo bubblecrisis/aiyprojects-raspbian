@@ -72,11 +72,14 @@ def wait_for_face(faceCascade):
 
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             faces = faceCascade.detectMultiScale(gray,scaleFactor=1.2,minNeighbors=5,minSize=(20, 20))
+            logger.info('detecting face...')
             for (x,y,w,h) in faces:
                 if w > 50 and h > 50:
                     face_found = True 
                     logger.info('Face detected. x=%s, y=%s, w=%s, h=%s',w,y,w,h)
-                    break        
+                    break
+                else:
+                    logger.info('Face bypassing. x=%s, y=%s, w=%s, h=%s',w,y,w,h)            
     finally:   
         cap.release()
 
