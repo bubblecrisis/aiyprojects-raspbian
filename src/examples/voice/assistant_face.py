@@ -123,7 +123,7 @@ def main():
     if arguments.launch:
         text, audio, state = assistant.send_phrase(launch_phrase(arguments.launch))
         if audio:
-            aiy.audio.play_audio(audio, assistant.get_volume())
+            logger.info('Launched')
 
     faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
     cap = capture_video()
