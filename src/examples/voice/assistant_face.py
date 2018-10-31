@@ -17,6 +17,7 @@ import sys
 from argparse import ArgumentParser
 
 launch_phrase_data = None
+image_rotate = 90
 
 #
 #    The supported statuses are:
@@ -49,10 +50,12 @@ def launch_phrase(launch_file):
 
 def process_arg():
     parser = ArgumentParser()
-    parser.add_argument("-l", "--launch", help="Launch *.wav file", metavar="FILE")
+    parser.add_argument("-l", "--launch", help="Launch *.wav file", type=int, metavar="N")
+    parser.add_argument("-r", "--rotate", help="Rotate image", metavar="FILE")
     return parser.parse_args()
 
 def wait_for_face(faceCascade):
+    global image_rotate
     cap = cv2.VideoCapture(0)
     cap.set(3,640) # set Width
     cap.set(4,480) # set Height
@@ -64,10 +67,10 @@ def wait_for_face(faceCascade):
             ret, img = cap.read()
 
             # img = cv2.flip(img, -1)
-            # rotate 90
+            # rotate image
             (h, w) = img.shape[:2]
             center = (w/2, h/2)
-            M = cv2.getRotationMatrix2D(center, 90, 1.0)
+            M = cv2.getRotationMatrix2D(center, image_rotate, 1.0)
             img = cv2.warpAffine(img, M, (h, w))
 
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -128,6 +131,7 @@ def silent_launch(assistant):
 
 def main():
     global launch_phrase_data
+    global image_rotate
 
     arguments = process_arg()
     status_ui = aiy.voicehat.get_status_ui()
@@ -139,6 +143,8 @@ def main():
     if arguments.launch:
         launch_phrase_data = launch_phrase(arguments.launch)
         silent_launch(assistant)
+    if arguments.rotate:
+        image_rotate = arguments.rotate     
 
     faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
     with aiy.audio.get_recorder():
