@@ -63,7 +63,7 @@ def wait_for_face(faceCascade):
         face_found = False
         logger.info('Waiting for a face...')
         while not face_found:
-            time.sleep(0.5)
+            #time.sleep(0.5)
             ret, img = cap.read()
 
             # img = cv2.flip(img, -1)
@@ -77,7 +77,7 @@ def wait_for_face(faceCascade):
             faces = faceCascade.detectMultiScale(gray,scaleFactor=1.2,minNeighbors=5,minSize=(20, 20))
             logger.info('detecting face...')
             for (x,y,w,h) in faces:
-                if w > 50 and h > 50:
+                if w > 40 and h > 40:
                     face_found = True 
                     logger.info('Face detected. x=%s, y=%s, w=%s, h=%s',w,y,w,h)
                     break
