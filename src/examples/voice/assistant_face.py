@@ -127,7 +127,7 @@ def main():
 
     faceCascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
     cap = capture_video()
-    with aiy.audio.get_recorder()
+    with aiy.audio.get_recorder():
         try:
             while True:
                 wait_for_face(cap, faceCascade)
